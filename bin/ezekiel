@@ -1,0 +1,14 @@
+<?php
+
+    use classes\Application;
+
+    require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'autoloader.php';
+
+    $app = new Application();
+
+    $app->register(new \commands\Help());
+    $app->register(new \commands\Listing());
+
+    $app->register(new \commands\install\Module());
+
+    $app->process($argv);
