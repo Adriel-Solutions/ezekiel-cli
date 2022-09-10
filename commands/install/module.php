@@ -32,6 +32,8 @@
             $instruction = "\t\t\tmodule(\"$name\")->activate();";
             $app->execute('sed -i "" -e $\'' . $line_closing - 2 . ' a\\\\\\n\'\'' . $instruction . '\' ./app/bootstrap.php');
 
+            $app->execute('./ezekiel run:migrations');
+
             $app->output("Module $name installed and activated");
         }
     }

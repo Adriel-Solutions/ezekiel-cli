@@ -29,7 +29,10 @@
                     \tEvery command follows the syntax `verb:topic arguments`
 
                     \tYou can find all the supported commands and features by calling `php ezekiel list`. This will
-                    \ttrigger the `list` command and show a brief summary of each and every ezekiel command.\n
+                    \ttrigger the `list` command and show a brief summary of each and every ezekiel command.
+
+                    \tIn the backend, what the ezekiel command-line interface does is run other shell commands on 
+                    \tyour behalf, and it displays them prior to execution so you know what's going on.\n
                 EOD
             );
 

@@ -16,4 +16,6 @@
 
     $app->register(new \commands\install\Module());
 
+    $app->register(new \commands\run\Migrations());
+
     $app->process($argv);
