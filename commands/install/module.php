@@ -8,30 +8,15 @@
 
     class Module extends Command {
         protected string $identifier = 'install:module';
+        protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' ];
 
         public function run(Application $app, ?string ...$args): void
         {
+            $this->exit_if_missing_dependencies($app);
+
             if(empty($args)) {
                 $app->output('Missing arguments');
                 $app->output('Usage: php ezekiel install:module <name>');
-                return;
-            }
-
-            if(!$app->is_available('git')) {
-                $app->output('Missing dependencies');
-                $app->output('This command requires git to be installed');
-                return;
-            }
-
-            if(!$app->is_available('sed')) {
-                $app->output('Missing dependencies');
-                $app->output('This command requires sed to be installed');
-                return;
-            }
-
-            if(!$app->is_available('grep')) {
-                $app->output('Missing dependencies');
-                $app->output('This command requires grep to be installed');
                 return;
             }
 

@@ -5,6 +5,7 @@
     class Command {
         protected string $identifier;
         protected string $description;
+        protected array $dependencies;
 
         public function run(Application $app, ?string ...$args) : void {  }
 
@@ -18,4 +19,16 @@
             return $this->description;
         }
 
+        public function exit_if_missing_dependencies(Application $app) : void
+        {
+            if(empty($this->dependencies)) return;
+
+            foreach($this->dependencies as $d) {
+                if($app->is_available($d)) continue;
+
+                $app->output('Missing dependencies');
+                $app->output('This command requires ' . $d . ' to be installed');
+                die();
+            }
+        }
     }
