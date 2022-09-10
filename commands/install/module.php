@@ -21,8 +21,15 @@
             }
 
             $name = $args[0];
-            $repository_url = Constants::$GIT_ORGANIZATION_URL . "/ezekiel-module-$name";
 
+            if(file_exists("./app/modules/$name/module.json")) {
+                $metadata = json_decode(file_get_contents("./app/modules/$name/module.json"), true);
+                $version = $metadata['version'];
+                $app->output("Module $name installed already in version $version");
+                return;
+            }
+
+            $repository_url = Constants::$GIT_ORGANIZATION_URL . "/ezekiel-module-$name";
             $app->execute("git clone $repository_url ./app/modules/$name");
             $app->execute("rm -rf ./app/modules/$name/.git");
 
