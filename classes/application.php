@@ -68,19 +68,3 @@
             return join("\n", $stdout);
         }
     }
-
-    // @TODO ajout autoloader
-    // @TODO composer.json avec vendor bin 
-    // @WANT ezekiel make:module
-    // @WANT ezekiel make:service
-    // @WANT ezekiel make:controller
-    // @WANT ezekiel make:thirdparty
-    // @WANT ezekiel make:router
-    // @WANT ezekiel make:job
-    // @WANT ezekiel make:resource (crud)
-
-    // Reflexion 
-    /* $app = new Application(); */
-
-    /* $app->register_command(new CommandHelp()); */
-    /* $app->register_command(new CommandList()); */

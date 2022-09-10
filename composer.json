@@ -1,0 +1,16 @@
+{
+  "name": "adrielsolutions/ezekiel-cli",
+  "description": "The CLI for the Ezekiel PHP framework",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Adriel Solutions",
+      "email": "it@adriel.solutions"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "bin": [
+    "bin/ezekiel"
+  ]
+}

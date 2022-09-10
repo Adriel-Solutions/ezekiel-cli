@@ -1,5 +1,10 @@
 <?php
 
+    if(php_sapi_name() !== 'cli') {
+        echo 'Error: This CLI must be run with the PHP CLI';
+        exit();
+    }
+
     use classes\Application;
 
     require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'autoloader.php';
