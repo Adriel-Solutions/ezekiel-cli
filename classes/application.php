@@ -4,10 +4,12 @@
 
     class Application {
         private Commands $commands;
+        private int $last_exit_code;
 
         public function __construct()
         {
             $this->commands = new Commands();
+            $this->last_exit_code = 0;
         }
 
         public function register(Command $cmd) : void
@@ -64,7 +66,12 @@
         public function execute(string $command) : ?string
         {
             $this->output("Running command : $command");
-            exec($command, $stdout, $exit_code);
+            exec($command, $stdout, $this->last_exit_code);
             return join("\n", $stdout);
+        }
+
+        public function get_last_exit_code() : int
+        {
+            return $this->last_exit_code;
         }
     }

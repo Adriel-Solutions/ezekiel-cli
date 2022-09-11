@@ -8,7 +8,7 @@
 
     class Module extends Command {
         protected string $identifier = 'install:module';
-        protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' ];
+        protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' , 'curl' ];
 
         public function run(Application $app, ?string ...$args): void
         {
@@ -30,6 +30,14 @@
             }
 
             $repository_url = Constants::$GIT_ORGANIZATION_URL . "/ezekiel-module-$name";
+            $app->execute('git ls-remote ' . $repository_url . ' 2>/dev/null');
+            $repository_exists = 0 === $app->get_last_exit_code();
+
+            if(!$repository_exists) {
+                $app->output("Module $name does not exist");
+                return;
+            }
+
             $app->execute("git clone $repository_url ./app/modules/$name");
             $app->execute("rm -rf ./app/modules/$name/.git");
 
