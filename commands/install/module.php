@@ -8,7 +8,7 @@
 
     class Module extends Command {
         protected string $identifier = 'install:module';
-        protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' , 'curl' ];
+        protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' ];
 
         public function run(Application $app, ?string ...$args): void
         {
