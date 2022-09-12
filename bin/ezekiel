@@ -13,6 +13,7 @@
 
     $app->register(new \commands\Help());
     $app->register(new \commands\Listing());
+    $app->register(new \commands\Upgrade());
 
     $app->register(new \commands\install\Module());
 
