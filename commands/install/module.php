@@ -8,6 +8,8 @@
 
     class Module extends Command {
         protected string $identifier = 'install:module';
+        protected string $description = 'Install a remote module inside the project by downloading its code';
+        protected string $help = 'Usage: ezekiel install:module <name>';
         protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' ];
 
         public function run(Application $app, ?string ...$args): void
@@ -16,7 +18,7 @@
 
             if(empty($args)) {
                 $app->output('Missing arguments');
-                $app->output('Usage: php ezekiel install:module <name>');
+                $app->output('Usage: ezekiel install:module <name>');
                 return;
             }
 

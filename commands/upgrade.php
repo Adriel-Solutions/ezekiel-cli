@@ -8,7 +8,9 @@
 
     class Upgrade extends Command {
         protected string $identifier = 'upgrade';
-        protected array $dependencies = [ 'curl' ];
+        protected string $description = 'Upgrade the framework\'s code by downloading its newest remote code';
+        protected string $help = 'Usage: ezekiel upgrade';
+        protected array $dependencies = [ 'curl' , 'svn' ];
 
         public function run(Application $app, ?string ...$args): void
         {

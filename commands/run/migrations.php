@@ -8,6 +8,8 @@
 
     class Migrations extends Command {
         protected string $identifier = 'run:migrations';
+        protected string $description = 'Run database migration files';
+        protected string $help = 'Usage: ezekiel run:migrations';
 
         public function run(Application $app, ?string ...$args): void
         {
