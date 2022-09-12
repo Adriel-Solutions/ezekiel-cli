@@ -41,6 +41,20 @@
             $cmd->run($this, ...$args);
         }
 
+        public function execute(string $command) : ?string
+        {
+            $this->output("Running command : $command");
+            exec($command, $stdout, $this->last_exit_code);
+            return join("\n", $stdout);
+        }
+
+        public function ezekiel(string $command) : void
+        {
+            $this->process(array_merge(['ezekiel'], explode(' ', $command)));
+        }
+
+        // ---
+
         public function cls() : void
         {
             print("\033\033");
@@ -63,20 +77,16 @@
             return !empty(shell_exec("which $program"));
         }
 
-        public function execute(string $command) : ?string
-        {
-            $this->output("Running command : $command");
-            exec($command, $stdout, $this->last_exit_code);
-            return join("\n", $stdout);
-        }
+        // ---
 
         public function get_last_exit_code() : int
         {
             return $this->last_exit_code;
         }
 
-        public function ezekiel(string $command) : void
+        public function get_commands() : Commands
         {
-            $this->process(array_merge(['ezekiel'], explode(' ', $command)));
+            return $this->commands;
         }
+
     }
