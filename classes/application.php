@@ -74,4 +74,9 @@
         {
             return $this->last_exit_code;
         }
+
+        public function ezekiel(string $command) : void
+        {
+            $this->process(array_merge(['ezekiel'], explode(' ', $command)));
+        }
     }
