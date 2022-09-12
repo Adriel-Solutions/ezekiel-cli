@@ -13,6 +13,6 @@
 
         public function run(Application $app, ?string ...$args): void
         {
-            $app->execute("./setup/scripts/run-db-migrations.sh");
+            $app->execute("./setup/scripts/docker/run-db-migrations.sh");
         }
     }
