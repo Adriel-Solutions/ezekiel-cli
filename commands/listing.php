@@ -16,21 +16,15 @@
 
             $app->output("List of available commands:");
 
-            $longest_command_size = 0;
-            foreach($commands as $identifier => $c) {
-                if(strlen($identifier) <= $longest_command_size) continue;
-                $longest_command_size = strlen($identifier);
-            }
-
-            $word_size = 5;
-            $tab_count = ceil($longest_command_size / $word_size) + 1;
-            foreach($commands as $identifier => $c) {
-                $identifier_size = ceil ( strlen($identifier) / $word_size ) * $word_size;
-                $tab_need = $tab_count - ceil ( $identifier_size / $word_size ) + 1;
-
-                $app->output("  " . $identifier . str_repeat("\t", $tab_need) . $c->get_description());
-            }
+            $app->output_table(
+                [ 'Command' , 'Description' ],
+                array_map(
+                    fn($c) => [ $c->get_identifier() , $c->get_description() ],
+                    iterator_to_array($commands)
+                )
+            );
 
             $app->output("\nUse `ezekiel help <command>` to display help specific to a command");
+
         }
     }

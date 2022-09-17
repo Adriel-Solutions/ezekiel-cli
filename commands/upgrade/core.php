@@ -1,15 +1,15 @@
 <?php
 
-    namespace commands;
+    namespace commands\upgrade;
 
     use classes\Application;
     use classes\Command;
     use classes\Constants;
 
-    class Upgrade extends Command {
-        protected string $identifier = 'upgrade';
+    class Core extends Command {
+        protected string $identifier = 'upgrade:core';
         protected string $description = 'Upgrade the framework\'s code by downloading its newest remote code';
-        protected string $help = 'Usage: ezekiel upgrade';
+        protected string $help = 'Usage: ezekiel upgrade:core';
         protected array $dependencies = [ 'curl' , 'svn' ];
 
         public function run(Application $app, ?string ...$args): void

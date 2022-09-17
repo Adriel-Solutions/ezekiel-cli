@@ -67,9 +67,76 @@
             print("\n");
         }
 
-        public function prompt(string $str) : string
+        public function output_table(array $headers, array $rows) : void
         {
-            return readline($str);
+            $max_widths = [];
+            for($i = 0; $i < count($headers); $i++) {
+                $h = $headers[$i];
+                $max_width = strlen($h);
+
+                foreach($rows as $r) {
+                    $cell_width = strlen($r[$i]);
+
+                    if($max_width > $cell_width) continue;
+
+                    $max_width = $cell_width;
+                }
+
+                $max_widths[$h] = $max_width;
+            }
+
+            // First line
+            print("+");
+            foreach($headers as $h) {
+                print(str_repeat("-", $max_widths[$h] + 2));
+                print("+");
+            }
+            print("\n");
+
+            // Headers
+            print('|');
+            foreach($headers as $h) {
+                print(" " . str_pad($h, $max_widths[$h]) . " ");
+                print("|");
+            }
+            print("\n");
+
+            // Line between headers and body
+            print('+');
+            foreach($headers as $h) {
+                print(str_repeat("-", $max_widths[$h] + 2));
+                print("+");
+            }
+            print("\n");
+
+            // Body rows
+            foreach($rows as $r) {
+                for($i = 0; $i < count($headers); $i++) {
+                    $h = $headers[$i];
+                    $cell = $r[$i];
+
+                    print('|');
+                    print(" " . str_pad($cell, $max_widths[$h]) . " ");
+                }
+                print("|");
+
+                print("\n");
+
+                // Inter-row line separator
+                print('+');
+                foreach($headers as $h) {
+                    print(str_repeat("-", $max_widths[$h] + 2));
+                    print("+");
+                }
+
+                print("\n");
+            }
+            print("\n");
+        }
+
+        public function prompt(string $str, string $default = "") : string
+        {
+            return readline($str) ?: $default;
         }
 
         public function is_available(string $program) : string
@@ -87,6 +154,23 @@
         public function get_commands() : Commands
         {
             return $this->commands;
+        }
+
+        // ---
+        
+        public function dir_app() : string
+        {
+            return './app';
+        }
+
+        public function dir_root() : string
+        {
+            return '.';
+        }
+
+        public function dir_templates() : string
+        {
+            return __DIR__ . '/../templates' ;
         }
 
     }

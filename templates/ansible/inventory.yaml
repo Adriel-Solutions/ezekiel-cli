@@ -1,0 +1,8 @@
+all:
+  hosts:
+    <SSH_HOST>:
+      domain: "<DOMAIN>"
+      git_repository_url: "<GIT_URL>"
+      php_version: 8.1
+      ssl_email: "<SSL_EMAIL>"
+

@@ -11,12 +11,23 @@
 
     $app = new Application();
 
-    $app->register(new \commands\Help());
-    $app->register(new \commands\Listing());
-    $app->register(new \commands\Upgrade());
+    $app->register(new \commands\Help);
+    $app->register(new \commands\Listing);
 
-    $app->register(new \commands\install\Module());
+    $app->register(new \commands\upgrade\Core);
 
-    $app->register(new \commands\run\Migrations());
+    $app->register(new \commands\install\Module);
+
+    $app->register(new \commands\run\Migrations);
+
+    $app->register(new \commands\show\Modules);
+
+    $app->register(new \commands\ansible\Setup);
+    $app->register(new \commands\ansible\Ping);
+    $app->register(new \commands\ansible\Provision);
+    $app->register(new \commands\ansible\Domain);
+    $app->register(new \commands\ansible\Deploy);
+    $app->register(new \commands\ansible\Publish);
+    $app->register(new \commands\ansible\Rollback);
 
     $app->process($argv);
