@@ -13,6 +13,7 @@
 
         public function run(Application $app, ?string ...$args): void
         {
-            $app->execute("./setup/scripts/docker/run-db-migrations.sh");
+            $root_dir = $app->dir_root();
+            $app->execute("php $root_dir/native/scripts/run-db-migrations.php");
         }
     }
