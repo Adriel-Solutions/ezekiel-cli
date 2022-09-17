@@ -14,6 +14,7 @@
 
         public function run(Application $app, ?string ...$args): void
         {
+            $this->exit_if_missing_dependencies($app);
             $root_dir = $app->dir_root();
             $app->execute("ansible-playbook -i $root_dir/ansible/inventory.yaml $root_dir/ansible/playbooks/rollback.yaml");
         }

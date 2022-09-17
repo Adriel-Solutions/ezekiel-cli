@@ -14,6 +14,8 @@
 
         public function run(Application $app, ?string ...$args): void
         {
+            $this->exit_if_missing_dependencies($app);
+
             // Prompt every variable
             $settings = [
                 'SSH_HOST' => $app->prompt('SSH Host : ', ''),
@@ -23,11 +25,9 @@
             ];
 
             // Retrieve the default template 
-            $template = file_get_contents($app->dir_templates() . "/ansible/inventory.yaml");
-            foreach($settings as $k => $v)
-                $template = str_replace("<$k>", $v, $template);
+            $output = $app->fill_template("/ansible/inventory.yaml", $settings);
 
-            file_put_contents($app->dir_root() . "/ansible/inventory.yaml", $template);
+            file_put_contents($app->dir_root() . "/ansible/inventory.yaml", $output);
 
             $app->output('Ansible inventory properly configured');
         }
