@@ -18,7 +18,12 @@
 
     $app->register(new \commands\install\Module);
 
+    $app->register(new \commands\make\Service);
+
+    $app->register(new \commands\run\Audit);
     $app->register(new \commands\run\Migrations);
+    $app->register(new \commands\run\Scheduler);
+    $app->register(new \commands\run\Tests);
 
     $app->register(new \commands\show\Modules);
 

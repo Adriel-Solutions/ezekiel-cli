@@ -2,17 +2,17 @@
 
     namespace commands\install;
 
-    use classes\Application;
-    use classes\Command;
-    use classes\Constants;
+    use classes\application;
+    use classes\command;
+    use classes\constants;
 
-    class Ui extends Command {
+    class ui extends command {
         protected string $identifier = 'install:ui';
-        protected string $description = 'Install the remote ui library inside the project by downloading its code';
-        protected string $help = 'Usage: ezekiel install:ui';
+        protected string $description = 'install the remote ui library inside the project by downloading its code';
+        protected string $help = 'usage: ezekiel install:ui';
         protected array $dependencies = [ 'git' , 'sed' , 'awk' , 'grep' ];
 
-        public function run(Application $app, ?string ...$args): void
+        public function run(application $app, ?string ...$args): void
         {
             $this->exit_if_missing_dependencies($app);
 
