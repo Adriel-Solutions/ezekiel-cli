@@ -173,4 +173,14 @@
             return __DIR__ . '/../templates' ;
         }
 
+        // ---
+
+        public function fill_template(string $name, array $variables) : string
+        {
+            $content = file_get_contents($this->dir_templates() . $name);
+            foreach($variables as $k => $v)
+                $content = str_replace("<$k>", $v, $content);
+            return $content;
+        }
+
     }
