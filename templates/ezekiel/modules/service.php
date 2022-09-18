@@ -1,6 +1,6 @@
 <?php
 
-    namespace app\services;
+    namespace app\modules\<LOWER_NAME>\services;
 
     use native\facades\Service;
 
@@ -9,3 +9,4 @@
         protected array $relations = [];
         protected array $schema = [];
     }
+

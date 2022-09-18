@@ -14,18 +14,26 @@
     $app->register(new \commands\Help);
     $app->register(new \commands\Listing);
 
-    $app->register(new \commands\upgrade\Core);
+    $app->register(new \commands\show\Modules);
+
+
+    $app->register(new \commands\make\Service);
+    $app->register(new \commands\make\Controller);
+    $app->register(new \commands\make\Adapter);
+    $app->register(new \commands\make\Job);
+    $app->register(new \commands\make\Router);
+    $app->register(new \commands\make\Module);
 
     $app->register(new \commands\install\Module);
 
-    $app->register(new \commands\make\Service);
+    $app->register(new \commands\upgrade\Core);
+    $app->register(new \commands\upgrade\Cli);
+    $app->register(new \commands\upgrade\Dependencies);
 
     $app->register(new \commands\run\Audit);
     $app->register(new \commands\run\Migrations);
     $app->register(new \commands\run\Scheduler);
     $app->register(new \commands\run\Tests);
-
-    $app->register(new \commands\show\Modules);
 
     $app->register(new \commands\ansible\Setup);
     $app->register(new \commands\ansible\Ping);

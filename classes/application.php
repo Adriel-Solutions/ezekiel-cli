@@ -30,8 +30,8 @@
 
             if(!isset($this->commands[$cmd])) {
                 $this->output('This command is not supported');
-                $this->output('Type `list` to view all the supported commands');
-                $this->output('Type `help` to display the manual');
+                $this->output('Use `list` to view all the supported commands');
+                $this->output('Use `help` to display the manual');
                 return;
             }
 
@@ -132,6 +132,11 @@
                 print("\n");
             }
             print("\n");
+        }
+
+        public function output_file(string $filename, string $content) : void
+        {
+            file_put_contents($filename, $content);
         }
 
         public function prompt(string $str, string $default = "") : string
