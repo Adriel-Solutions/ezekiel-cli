@@ -10,7 +10,6 @@
         protected string $identifier = 'upgrade:dependencies';
         protected string $description = 'Upgrade dependencies via Composer';
         protected string $help = 'Usage: ezekiel upgrade:dependencies';
-        protected array $dependencies = [ 'composer' ];
 
         public function run(Application $app, ?string ...$args): void
         {

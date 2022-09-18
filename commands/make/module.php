@@ -47,7 +47,7 @@
 
             // Create a default file for every possible need (except routers, specific instructions later)
             $files = [
-                'controller' => $app->fill_template('/ezekiel/modules/controller.php', $variables),
+                /* 'controller' => $app->fill_template('/ezekiel/modules/controller.php', $variables), */
                 'service' => $app->fill_template('/ezekiel/modules/service.php', $variables),
                 'adapter' => $app->fill_template('/ezekiel/modules/adapter.php', $variables),
                 'job' => $app->fill_template('/ezekiel/modules/job.php', $variables)
@@ -66,6 +66,14 @@
                 $app->output_file(
                     "$app_dir/modules/$name/routers/$r.php",
                     $app->fill_template("/ezekiel/modules/router.php", [ ...$variables, 'ROUTER_NAME' => ucfirst($r) ])
+                );
+
+            // Create controllers
+            $app->execute("mkdir $app_dir/modules/$name/controllers");
+            foreach([ 'front' , 'api' , 'webhooks' ] as $c)
+                $app->output_file(
+                    "$app_dir/modules/$name/controllers/$c.php",
+                    $app->fill_template("/ezekiel/modules/controller.php", [ ...$variables, 'CONTROLLER_NAME' => ucfirst($r) ])
                 );
 
             // Create views directories

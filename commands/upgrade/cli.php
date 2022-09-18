@@ -10,7 +10,6 @@
         protected string $identifier = 'upgrade:cli';
         protected string $description = 'Upgrade the framework\'s CLI via composer';
         protected string $help = 'Usage: ezekiel upgrade:cli';
-        protected array $dependencies = [ 'composer' ];
 
         public function run(Application $app, ?string ...$args): void
         {

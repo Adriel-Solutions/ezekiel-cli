@@ -4,11 +4,12 @@
 
     use native\libs\Router;
     use native\libs\Hooks;
+    use native\libs\Module as BaseModule;
 
     /**
      * @module <NAME>
      */
-    class Module {
+    class Module extends BaseModule {
         public function activate() : void 
         {
             Hooks::register('before_mount_front', function(Router $router) {

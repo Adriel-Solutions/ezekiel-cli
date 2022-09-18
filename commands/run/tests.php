@@ -14,7 +14,7 @@
         public function run(Application $app, ?string ...$args): void
         {
             $root_dir = $app->dir_root();
-            $app->execute("$root_dir/dependencies/bin/phpunit -c $root_dir/setup/scripts/phpunit.xml");
+            $app->execute("$root_dir/dependencies/bin/phpunit -c $root_dir/setup/scripts/phpunit.xml --testdox");
         }
     }
 

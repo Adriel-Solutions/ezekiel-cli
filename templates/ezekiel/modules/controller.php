@@ -7,7 +7,7 @@
     use native\libs\Response;
 
 
-    class <PLURAL> extends Controller {
+    class <CONTROLLER_NAME> extends Controller {
 
         protected function load() : void
         {
@@ -15,6 +15,7 @@
 
         public function handle(Request $req, Response $res) : void 
         {
+
         }
 
     }
