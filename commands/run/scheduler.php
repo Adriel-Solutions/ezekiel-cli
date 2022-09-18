@@ -14,7 +14,8 @@
         public function run(Application $app, ?string ...$args): void
         {
             $root_dir = $app->dir_root();
-            $app->execute("php $root_dir/native/bin/scheduler.php");
+            $output = $app->execute("php $root_dir/native/bin/scheduler.php");
+            $app->output($output);
         }
     }
 

@@ -14,6 +14,7 @@
         public function run(Application $app, ?string ...$args): void
         {
             $root_dir = $app->dir_root();
-            $app->execute("php $root_dir/native/scripts/run-db-migrations.php");
+            $output = $app->execute("php $root_dir/native/scripts/run-db-migrations.php");
+            $app->output($output);
         }
     }

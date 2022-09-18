@@ -25,6 +25,5 @@
             );
 
             $app->output("\nUse `ezekiel help <command>` to display help specific to a command");
-
         }
     }
