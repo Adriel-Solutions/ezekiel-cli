@@ -5,11 +5,13 @@
     class Application {
         private Commands $commands;
         private int $last_exit_code;
+        private bool $is_quiet;
 
         public function __construct()
         {
             $this->commands = new Commands();
             $this->last_exit_code = 0;
+            $this->is_quiet = false;
         }
 
         public function register(Command $cmd) : void
@@ -43,8 +45,13 @@
 
         public function execute(string $command) : ?string
         {
-            $this->output("Running command : $command");
+            if(!$this->is_quiet)
+                $this->output("Running command : $command");
+
             exec($command, $stdout, $this->last_exit_code);
+
+            $this->is_quiet = false;
+
             return join("\n", $stdout);
         }
 
@@ -67,8 +74,103 @@
             print("\n");
         }
 
+        public function output_with_pagination(string $str) : void
+        {
+            /* $instructions = "q: quit\t\t\t\t\t\tup/down: Next/Prev\t\t\t\t\t\tspace: Next\n: "; */
+
+            $page_width = $this->quiet()->execute('tput cols');
+            $page_height = $this->quiet()->execute('tput lines') - 4;
+
+            $pages = [];
+
+            // Page filling algorithm
+            $virtual_line_width = 0;
+            $virtual_page_height = 0;
+            $virtual_page_content = "";
+            foreach(str_split($str) as $character) {
+                $virtual_page_content .= $character;
+                $virtual_line_width++;
+
+                if($character === "\n") {
+                    $virtual_line_width = 0;
+                    $virtual_page_height++;
+                }
+
+                if($virtual_line_width > $page_width) {
+                    $virtual_line_width = 0;
+                    $virtual_page_height ++;
+                }
+
+                if($virtual_page_height > $page_height) {
+                    $pages[] = $virtual_page_content;
+                    $virtual_line_width = 0;
+                    $virtual_page_height = 0;
+                    $virtual_page_content = "";
+                }
+            }
+
+            // Append remaining buffer to the page
+            if(!empty($virtual_page_content))
+                $pages[] = $virtual_page_content;
+
+            // Display
+            /* $this->cls(); */
+            $cur = 0; $stop = false;
+            while($cur < count($pages) && $stop !== true) {
+                $this->output($pages[$cur]);
+
+                if($cur === count($pages) - 1) break;
+
+                $character = $this->prompt_character(":");
+
+                switch($character) {
+                    case 'q': $stop = true; break; // Q
+                    case "\033[A": if($cur > 0) $cur--; break; // Up
+                    default: $cur++; break; // Down / Space / Other
+                }
+
+                print("\n");
+            }
+        }
+
         public function output_table(array $headers, array $rows) : void
         {
+            print($this->to_table($headers, $rows));
+        }
+
+        public function output_file(string $filename, string $content) : void
+        {
+            file_put_contents($filename, $content);
+        }
+
+        public function prompt(string $str, string $default = "") : string
+        {
+            return readline($str) ?: $default;
+        }
+
+        public function prompt_character(string $str) : string
+        {
+            readline_callback_handler_install($str, function() {});
+            $char = stream_get_contents(STDIN, 1);
+            readline_callback_handler_remove();
+            return $char;
+        }
+
+        public function is_available(string $program) : string
+        {
+            return !empty(shell_exec("which $program"));
+        }
+
+        public function quiet() : Application
+        {
+            $this->is_quiet = true;
+            return $this;
+        }
+
+        public function to_table(array $headers, array $rows) : string
+        {
+            $output = "";
+
             $max_widths = [];
             for($i = 0; $i < count($headers); $i++) {
                 $h = $headers[$i];
@@ -86,28 +188,28 @@
             }
 
             // First line
-            print("+");
+            $output .= "+";
             foreach($headers as $h) {
-                print(str_repeat("-", $max_widths[$h] + 2));
-                print("+");
+                $output .= str_repeat("-", $max_widths[$h] + 2);
+                $output .= "+";
             }
-            print("\n");
+            $output .= "\n";
 
             // Headers
-            print('|');
+            $output .= '|';
             foreach($headers as $h) {
-                print(" " . str_pad($h, $max_widths[$h]) . " ");
-                print("|");
+                $output .= " " . str_pad($h, $max_widths[$h]) . " ";
+                $output .= "|";
             }
-            print("\n");
+            $output .= "\n";
 
             // Line between headers and body
-            print('+');
+            $output .= '+';
             foreach($headers as $h) {
-                print(str_repeat("-", $max_widths[$h] + 2));
-                print("+");
+                $output .= str_repeat("-", $max_widths[$h] + 2);
+                $output .= "+";
             }
-            print("\n");
+            $output .= "\n";
 
             // Body rows
             foreach($rows as $r) {
@@ -115,38 +217,25 @@
                     $h = $headers[$i];
                     $cell = $r[$i];
 
-                    print('|');
-                    print(" " . str_pad($cell, $max_widths[$h]) . " ");
+                    $output .= '|';
+                    $output .= " " . str_pad($cell, $max_widths[$h]) . " ";
                 }
-                print("|");
+                $output .= "|";
 
-                print("\n");
+                $output .= "\n";
 
                 // Inter-row line separator
-                print('+');
+                $output .= '+';
                 foreach($headers as $h) {
-                    print(str_repeat("-", $max_widths[$h] + 2));
-                    print("+");
+                    $output .= str_repeat("-", $max_widths[$h] + 2);
+                    $output .= "+";
                 }
 
-                print("\n");
+                $output .= "\n";
             }
-            print("\n");
-        }
+            $output .= "\n";
 
-        public function output_file(string $filename, string $content) : void
-        {
-            file_put_contents($filename, $content);
-        }
-
-        public function prompt(string $str, string $default = "") : string
-        {
-            return readline($str) ?: $default;
-        }
-
-        public function is_available(string $program) : string
-        {
-            return !empty(shell_exec("which $program"));
+            return $output;
         }
 
         // ---

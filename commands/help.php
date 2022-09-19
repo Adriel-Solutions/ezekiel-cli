@@ -13,7 +13,7 @@
 
         public function run(Application $app, ?string ...$args): void
         {
-            // ezekiel help command
+            // ezekiel help for command
             if(!empty($args)) {
                 $class = '\\commands\\' . str_replace(':', '\\', $args[0]);
 
@@ -29,19 +29,17 @@
                 return;
             }
 
-            // ezekiel help
-            $app->cls();
+            // ezekiel actual help display
+            $display = "ezekiel(1)\t\t\t\t\t\tManual\t\t\t\t\t\tezekiel(1)\n\n";
 
-            $app->output("ezekiel(1)\t\t\t\t\t\tManual\t\t\t\t\t\tezekiel(1)");
+            $display .= "NAME\n";
+            $display .= "\tezekiel\n\n";
 
-            $app->output('NAME');
-            $app->output("\tezekiel\n");
+            $display .= "SYNOPSIS\n";
+            $display .= "\tezekiel command [arguments]\n\n";
 
-            $app->output('SYNOPSIS');
-            $app->output("\tezekiel command [arguments]\n");
-
-            $app->output('DESCRIPTION');
-            $app->output(
+            $display .= "DESCRIPTION\n";
+            $display .=
                 <<<EOD
                     \tThe ezekiel command-line interface enables you to quickly setup, automate, and scaffold code 
                     \tinside a PHP project based on the ezekiel framework.
@@ -52,12 +50,12 @@
                     \ttrigger the `list` command and show a brief summary of each and every ezekiel command.
 
                     \tIn the backend, what the ezekiel command-line interface does is run other shell commands on 
-                    \tyour behalf, and it displays them prior to execution so you know what's going on.\n
-                EOD
-            );
+                    \tyour behalf, and it displays them prior to execution so you know what's going on.\n\n
+                EOD;
+            
 
-            $app->output('EXAMPLES');
-            $app->output(
+            $display .= "EXAMPLES\n";
+            $display .=
                 <<<EOD
                     \tDisplay all the available commands in the ezekiel command-line interface
 
@@ -88,25 +86,27 @@
                     \t\tezekiel run:jobs
 
                     \tYou can find all the supported commands and features by calling `ezekiel list`. This will
-                    \ttrigger the `list` command and show a brief summary of each and every ezekiel command.\n
-                EOD
-            );
+                    \ttrigger the `list` command and show a brief summary of each and every ezekiel command.\n\n
+                EOD;
+            
 
-            $app->output('EXIT STATUS');
-            $app->output(
+            $display .= "EXIT STATUS\n";
+            $display .=
                 <<<EOD
-                    \tThe ezekiel command-line interface exits 0 on success, and >0 if an error occurs.\n
-                EOD
-            );
+                    \tThe ezekiel command-line interface exits 0 on success, and >0 if an error occurs.\n\n
+                EOD;
+            
 
-            $app->output('AUTHORS');
-            $app->output(
+            $display .= "AUTHORS\n";
+            $display .=
                 <<<EOD
-                    \tAdriel Solutions <it@adriel.solutions>\n
-                EOD
-            );
+                    \tAdriel Solutions <it@adriel.solutions>\n\n
+                EOD;
+            
 
-            $app->output('VERSION');
-            $app->output("\t1.0\n");
+            $display .= "VERSION\n";
+            $display .= "\t1.0\n\n";
+
+            $app->output_with_pagination($display);
         }
     }

@@ -16,11 +16,13 @@
 
             $app->output("List of available commands:");
 
-            $app->output_table(
-                [ 'Command' , 'Description' ],
-                array_map(
-                    fn($c) => [ $c->get_identifier() , $c->get_description() ],
-                    iterator_to_array($commands)
+            $app->output_with_pagination(
+                $app->to_table(
+                    [ 'Command' , 'Description' ],
+                    array_map(
+                        fn($c) => [ $c->get_identifier() , $c->get_description() ],
+                        iterator_to_array($commands)
+                    )
                 )
             );
 
