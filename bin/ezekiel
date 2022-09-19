@@ -13,6 +13,7 @@
 
     $app->register(new \commands\Help);
     $app->register(new \commands\Listing);
+    $app->register(new \commands\Completion);
 
     $app->register(new \commands\show\Modules);
 
@@ -25,6 +26,7 @@
 
     $app->register(new \commands\install\Module);
     $app->register(new \commands\install\Ui);
+    $app->register(new \commands\install\Cli);
 
     $app->register(new \commands\upgrade\Core);
     $app->register(new \commands\upgrade\Cli);

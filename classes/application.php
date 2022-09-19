@@ -273,6 +273,7 @@
             $content = file_get_contents($this->dir_templates() . $name);
             foreach($variables as $k => $v)
                 $content = str_replace("<$k>", $v, $content);
+            $content = rtrim($content, "\n");
             return $content;
         }
 

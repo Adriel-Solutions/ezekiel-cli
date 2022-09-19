@@ -1,0 +1,13 @@
+_ezekiel()
+{
+    local cur prev opts
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="<SUGGESTIONS>"
+
+    COMPREPLY=()
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+
+    return 0
+}
+complete -F _ezekiel ezekiel
