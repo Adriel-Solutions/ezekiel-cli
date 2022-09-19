@@ -125,7 +125,6 @@
 
                 switch($character) {
                     case 'q': $stop = true; break; // Q
-                    case "\033[A": if($cur > 0) $cur--; break; // Up
                     default: $cur++; break; // Down / Space / Other
                 }
 
