@@ -47,7 +47,6 @@
 
             // Create a default file for every possible need (except routers, specific instructions later)
             $files = [
-                /* 'controller' => $app->fill_template('/ezekiel/modules/controller.php', $variables), */
                 'service' => $app->fill_template('/ezekiel/modules/service.php', $variables),
                 'adapter' => $app->fill_template('/ezekiel/modules/adapter.php', $variables),
                 'job' => $app->fill_template('/ezekiel/modules/job.php', $variables)
@@ -57,7 +56,7 @@
                 $dir = $f . 's';
 
                 $app->execute("mkdir $app_dir/modules/$name/$dir");
-                $app->output_file("$app_dir/modules/$name/$dir/$name.php",$output);
+                $app->output_file("$app_dir/modules/$name/$dir/$name.php", $output);
             }
 
             // Create routers
