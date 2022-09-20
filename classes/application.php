@@ -6,12 +6,14 @@
         private Commands $commands;
         private int $last_exit_code;
         private bool $is_quiet;
+        private bool $is_dry;
 
         public function __construct()
         {
             $this->commands = new Commands();
             $this->last_exit_code = 0;
             $this->is_quiet = false;
+            $this->is_dry = false;
         }
 
         public function register(Command $cmd) : void
@@ -40,6 +42,9 @@
             $cmd = $this->commands[$cmd];
             $args = array_slice($args, 2);
 
+            if(in_array('--dry-run', $args))
+                $this->is_dry = true;
+
             $cmd->run($this, ...$args);
         }
 
@@ -48,7 +53,8 @@
             if(!$this->is_quiet)
                 $this->output("Running command : $command");
 
-            exec($command, $stdout, $this->last_exit_code);
+            if(!$this->is_dry)
+                exec($command, $stdout, $this->last_exit_code);
 
             $this->is_quiet = false;
 
@@ -57,7 +63,8 @@
 
         public function ezekiel(string $command) : void
         {
-            $this->process(array_merge(['ezekiel'], explode(' ', $command)));
+            if(!$this->is_dry)
+                $this->process(array_merge(['ezekiel'], explode(' ', $command)));
         }
 
         // ---
@@ -114,7 +121,6 @@
                 $pages[] = $virtual_page_content;
 
             // Display
-            /* $this->cls(); */
             $cur = 0; $stop = false;
             while($cur < count($pages) && $stop !== true) {
                 $this->output($pages[$cur]);
@@ -139,7 +145,10 @@
 
         public function output_file(string $filename, string $content) : void
         {
-            file_put_contents($filename, $content);
+            if(!$this->is_dry)
+                file_put_contents($filename, $content);
+            else
+                print($content);
         }
 
         public function prompt(string $str, string $default = "") : string
