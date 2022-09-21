@@ -52,5 +52,20 @@
             $app->ezekiel('run:migrations');
 
             $app->output("Module $name installed and activated");
+
+            $metadata = json_decode(file_get_contents("./app/modules/$name/$name.json"));
+            $modules_to_install = $metadata['ezekiel_dependencies'];
+            $dependencies_to_install = $metadata['composer_dependencies'];
+
+            if(!empty($modules_to_install))
+                foreach($modules_to_install as $new_module)
+                    $app->ezekiel("install:module $new_module");
+
+            if(!empty($dependencies_to_install))
+                foreach($dependencies_to_install as $dependency => $version)
+                    // @TODO Check composer syntax
+                    $app->execute("composer require $dependency $version");
+
+
         }
     }

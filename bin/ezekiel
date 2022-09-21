@@ -23,12 +23,15 @@
     $app->register(new \commands\make\Job);
     $app->register(new \commands\make\Router);
     $app->register(new \commands\make\Module);
+    $app->register(new \commands\make\Form);
 
     $app->register(new \commands\install\Module);
     $app->register(new \commands\install\Ui);
     $app->register(new \commands\install\Cli);
+    $app->register(new \commands\install\Completion);
 
     $app->register(new \commands\upgrade\Core);
+    $app->register(new \commands\upgrade\Ui);
     $app->register(new \commands\upgrade\Cli);
     $app->register(new \commands\upgrade\Dependencies);
 

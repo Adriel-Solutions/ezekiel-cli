@@ -7,6 +7,7 @@
         private int $last_exit_code;
         private bool $is_quiet;
         private bool $is_dry;
+        private bool $is_globally_quiet;
 
         public function __construct()
         {
@@ -14,6 +15,7 @@
             $this->last_exit_code = 0;
             $this->is_quiet = false;
             $this->is_dry = false;
+            $this->is_globally_quiet = false;
         }
 
         public function register(Command $cmd) : void
@@ -45,18 +47,22 @@
             if(in_array('--dry-run', $args))
                 $this->is_dry = true;
 
+            if(in_array('--quiet', $args))
+                $this->is_globally_quiet = true;
+
             $cmd->run($this, ...$args);
         }
 
         public function execute(string $command) : ?string
         {
-            if(!$this->is_quiet)
+            if(!$this->is_quiet && !$this->is_globally_quiet)
                 $this->output("Running command : $command");
 
             if(!$this->is_dry)
                 exec($command, $stdout, $this->last_exit_code);
 
-            $this->is_quiet = false;
+            if(!$this->is_globally_quiet)
+                $this->is_quiet = false;
 
             return join("\n", $stdout);
         }
