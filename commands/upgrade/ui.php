@@ -7,7 +7,7 @@
     use classes\constants;
 
     class Ui extends command {
-        protected string $identifier = 'Upgrade:ui';
+        protected string $identifier = 'upgrade:ui';
         protected string $description = 'Upgrade the local ui library by downloading a newer version from git';
         protected string $help = 'usage: ezekiel upgrade:ui';
         protected array $dependencies = [ 'git' ];
