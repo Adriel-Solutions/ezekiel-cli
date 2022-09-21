@@ -29,7 +29,8 @@
             $app->execute('rm -rf ./native/ui/.git');
             $app->execute('mv ./native/ui/views/* ./native/ui/');
             $app->execute('mv ./native/ui ./native/views');
-            $app->execute('rm -r ./native/views-old');
+            $app->execute('rm -rf ./native/views-old');
+            $app->execute('rm -rf ./native/views/views');
 
             $app->output("The user interface library was updated");
         }
