@@ -27,7 +27,9 @@
             $app->execute('rm -rf ./native/views');
             $app->execute('git clone ' . Constants::$GIT_ORGANIZATION_URL . '/ezekiel-ui.git ./native/ui');
             $app->execute('rm -rf ./native/ui/.git');
+            $app->execute('mv ./native/ui/views/* ./native/ui/');
             $app->execute('mv ./native/ui ./native/views');
+            $app->execute('rm -r ./native/views-old');
 
             $app->output("The user interface library was updated");
         }
