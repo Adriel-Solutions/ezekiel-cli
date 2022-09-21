@@ -18,7 +18,7 @@
             $compound = array_filter($identifiers, fn($i) => str_contains($i, ":"));
             $switches = [ '--dry-run' , '--quiet' ];
 
-            $suggestions = join(' ', $basic) . ' ' . join(' ', $compound) . join(' ', $switches);
+            $suggestions = join(' ', $basic) . ' ' . join(' ', $compound) . ' ' . join(' ', $switches);
             $app->output($app->fill_template("/bash/completion", [ 'SUGGESTIONS' => $suggestions ]));
         }
     }
