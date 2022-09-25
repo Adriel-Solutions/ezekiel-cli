@@ -14,6 +14,7 @@
     $app->register(new \commands\Help);
     $app->register(new \commands\Listing);
     $app->register(new \commands\Completion);
+    $app->register(new \commands\Ssh);
     $app->register(new \commands\Version);
 
     $app->register(new \commands\show\Modules);

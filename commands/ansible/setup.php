@@ -29,6 +29,8 @@
 
             file_put_contents($app->dir_root() . "/ansible/inventory.yaml", $output);
 
+            $app->execute('cp ./configuration/.custom.env ./configuration/.production.env');
+
             $app->output('Ansible inventory properly configured');
         }
     }
