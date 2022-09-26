@@ -16,7 +16,7 @@
         {
             $this->exit_if_missing_dependencies($app);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name://' | tr -d '\" '");
-            $app->execute("docker exec -it --user postgres $container psql project");
+            passthru("docker exec -it --user postgres $container psql project");
         }
     }
 
