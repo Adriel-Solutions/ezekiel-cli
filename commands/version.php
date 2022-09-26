@@ -13,7 +13,7 @@
 
         public function run(Application $app, ?string ...$args): void
         {
-            $app->output("Ezekiel " . Constants::$VERSION);
+            $app->output("Ezekiel " . Constants::$VERSION_NUMBER . " - " . Constants::$VERSION_COMMIT . " as of " . Constants::$VERSION_DATE);
         }
     }
 
