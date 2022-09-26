@@ -25,7 +25,7 @@
             $command = join(' ', $args);
 
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name://' | tr -d '\" '");
-            passthru("docker exec -u 0 -it $container ezekiel $command");
+            passthru("docker exec -w/app -u 0 -it $container ./ezekiel $command");
         }
     }
 

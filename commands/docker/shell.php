@@ -16,7 +16,7 @@
         {
             $this->exit_if_missing_dependencies($app);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-web\" | sed -E 's/container_name://' | tr -d '\" '");
-            passthru("docker exec -u 0 -it $container sh");
+            passthru("docker exec -w /app -u 0 -it $container sh");
         }
     }
 
