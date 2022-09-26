@@ -16,7 +16,7 @@
         {
             $this->exit_if_missing_dependencies($app);
             $templates_dir = $app->dir_templates();
-            passthru("docker build -t ezekiel/boilerplate-php-fpm -f $templates_dir/docker/Dockerfile .");
+            passthru("DOCKER_BUILDKIT=0 docker build -t ezekiel/boilerplate-php-fpm -f $templates_dir/docker/Dockerfile .");
         }
     }
 
