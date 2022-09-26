@@ -10,12 +10,12 @@
         protected string $identifier = 'docker:repl';
         protected string $description = 'Open a psql repl inside the PG Docker container';
         protected string $help = 'Usage: ezekiel docker:repl';
-        protected array $dependencies = [ 'docker' ];
+        protected array $dependencies = [ 'docker' , 'sed' , 'tr' , 'grep' ];
 
         public function run(Application $app, ?string ...$args): void
         {
             $this->exit_if_missing_dependencies($app);
-            $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name: \"(.+)\"$/\1/' | tr -d ' '");
+            $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name://' | tr -d '\" '");
             $app->execute("docker exec -it --user postgres $container psql project");
         }
     }
