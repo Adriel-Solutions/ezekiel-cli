@@ -50,4 +50,7 @@
     $app->register(new \commands\ansible\Publish);
     $app->register(new \commands\ansible\Rollback);
 
+    $app->register(new \commands\docker\Build);
+    $app->register(new \commands\docker\Repl);
+
     $app->process($argv);
