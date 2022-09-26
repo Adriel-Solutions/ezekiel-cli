@@ -55,5 +55,6 @@
     $app->register(new \commands\docker\Shell);
     $app->register(new \commands\docker\Ezekiel);
     $app->register(new \commands\docker\Migrations);
+    $app->register(new \commands\docker\Scheduler);
 
     $app->process($argv);
