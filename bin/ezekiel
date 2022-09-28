@@ -31,6 +31,7 @@
     $app->register(new \commands\install\Ui);
     $app->register(new \commands\install\Cli);
     $app->register(new \commands\install\Completion);
+    $app->register(new \commands\install\Dependencies);
 
     $app->register(new \commands\upgrade\Core);
     $app->register(new \commands\upgrade\Ui);
@@ -53,7 +54,6 @@
     $app->register(new \commands\docker\Build);
     $app->register(new \commands\docker\Repl);
     $app->register(new \commands\docker\Shell);
-    $app->register(new \commands\docker\Ezekiel);
     $app->register(new \commands\docker\Migrations);
     $app->register(new \commands\docker\Scheduler);
 
