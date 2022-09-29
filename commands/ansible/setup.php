@@ -33,6 +33,8 @@
 
             $app->output('Ansible inventory properly configured');
 
-            $app->execute('ansible-galaxy install -r ./ansible/requirements.yml');
+            passthru('ansible-galaxy install -r ./ansible/requirements.yml');
+
+            $app->output('Ansible dependencies installed');
         }
     }
