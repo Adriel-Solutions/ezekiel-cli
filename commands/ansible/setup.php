@@ -10,7 +10,7 @@
         protected string $identifier = 'ansible:setup';
         protected string $description = 'Configure Ansible variables for deployment';
         protected string $help = 'Usage: ezekiel ansible:setup';
-        protected array $dependencies = [ 'ansible' , 'ansible-playbook' ];
+        protected array $dependencies = [ 'ansible' , 'ansible-playbook' , 'ansible-galaxy' ];
 
         public function run(Application $app, ?string ...$args): void
         {
@@ -32,5 +32,7 @@
             $app->execute('cp ./configuration/.custom.env ./configuration/.production.env');
 
             $app->output('Ansible inventory properly configured');
+
+            $app->execute('ansible-galaxy install -r ./ansible/requirements.yml');
         }
     }

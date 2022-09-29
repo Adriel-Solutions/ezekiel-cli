@@ -16,8 +16,9 @@
         {
             $this->exit_if_missing_dependencies($app);
             $root_dir = $app->dir_root();
-            $result = $app->execute("ansible all -m ping -i $root_dir/ansible/inventory.yaml");
-            $app->output($result);
+            /* $result = $app->execute("ansible all -m ping -i $root_dir/ansible/inventory.yaml"); */
+            /* $app->output($result); */
+            passthru("ansible all -m ping -i $root_dir/ansible/inventory.yaml");
         }
     }
 
