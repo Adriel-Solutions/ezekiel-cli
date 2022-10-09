@@ -11,6 +11,6 @@ RUN composer --version
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions opcache pdo pdo_pgsql gd zip soap curl
+    install-php-extensions opcache pdo pdo_pgsql gd zip soap curl pdo_mysql
 
 RUN apk --update add postgresql-client
