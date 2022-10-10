@@ -64,7 +64,7 @@
             foreach([ 'front' , 'api' , 'webhooks' ] as $r)
                 $app->output_file(
                     "$app_dir/modules/$name/routers/$r.php",
-                    $app->fill_template("/ezekiel/modules/router.php", [ ...$variables, 'ROUTER_NAME' => ucfirst($r) ])
+                    $app->fill_template("/ezekiel/modules/router.php", [ ...$variables,  'CONTROLLER_NAME' => $r, 'ROUTER_NAME' => ucfirst($r) ])
                 );
 
             // Create controllers
@@ -72,7 +72,7 @@
             foreach([ 'front' , 'api' , 'webhooks' ] as $c)
                 $app->output_file(
                     "$app_dir/modules/$name/controllers/$c.php",
-                    $app->fill_template("/ezekiel/modules/controller.php", [ ...$variables, 'CONTROLLER_NAME' => ucfirst($r) ])
+                    $app->fill_template("/ezekiel/modules/controller.php", [ ...$variables, 'CONTROLLER_NAME' => ucfirst($c) ])
                 );
 
             // Create views directories
