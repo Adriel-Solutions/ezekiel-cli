@@ -16,7 +16,7 @@
         {
             $this->exit_if_missing_dependencies($app);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
-            $output = $app->execute('docker exec -it $container sh -c "cat /tmp/sess*"');
+            $output = $app->execute("docker exec -it $container sh -c 'cat /tmp/sess*'");
             $app->output($output);
         }
     }
