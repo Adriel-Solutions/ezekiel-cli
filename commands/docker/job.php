@@ -48,9 +48,15 @@
             $output = $app->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
 
             $job = json_decode($output, true);
+
+            // Equivalent of JS Object.entries(...)
+            $new_job = [];
+            foreach($job as $k => $v)
+                $new_job[] = [ $k , $v ];
+
             $app->output_table(
-                array_keys($job),
-                array_values($job)
+                [ 'Attribute' , 'Value' ],
+                $new_job
             );
         }
     }
