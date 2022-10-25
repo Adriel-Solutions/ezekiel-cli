@@ -30,7 +30,7 @@
             fclose($handle);
 
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
-            $app->execute("docker cp $handle_uri $container:/tmp/");
+            $app->execute("docker cp $handle_uri $container:/tmp/$handle_filename");
             $output = $app->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
             var_dump($output);
             /* $app->output_table( */
