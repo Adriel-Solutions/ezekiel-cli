@@ -56,6 +56,7 @@
     $app->register(new \commands\docker\Shell);
     $app->register(new \commands\docker\Migrations);
     $app->register(new \commands\docker\Jobs);
+    $app->register(new \commands\docker\Job);
     $app->register(new \commands\docker\Scheduler);
     $app->register(new \commands\docker\Sessions);
     $app->register(new \commands\docker\Tests);
