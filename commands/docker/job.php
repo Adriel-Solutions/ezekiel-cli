@@ -23,7 +23,7 @@
 
             $id = $args[0];
 
-            $script = $app->fill_template('/scripts/docker/job.php', [ 'id' => $id ]);
+            $script = $app->fill_template('/scripts/docker/job.php', [ 'ID' => $id ]);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
             $output = $app->run_docker_script($container, $script);
 
