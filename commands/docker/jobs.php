@@ -17,6 +17,7 @@
             $this->exit_if_missing_dependencies($app);
 
             $script = <<<'EOF'
+                <?php
                 require './native/index.php';
                 $service = default_service('jobs');
                 $jobs = $service->get_all([ 'order' => [ 'pk' => 'ASC' ] ]);
