@@ -33,7 +33,6 @@
             fwrite($handle, $script);
             rename($handle_uri, $new_handle_uri);
 
-
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
             $app->execute("docker cp $new_handle_uri $container:/tmp/$handle_filename");
             $output = $app->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");

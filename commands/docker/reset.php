@@ -21,9 +21,3 @@
             $app->execute("docker exec -it --user postgres $container psql -f /docker-entrypoint-initdb.d/init.sql");
         }
     }
-
-
-
-
-
-
