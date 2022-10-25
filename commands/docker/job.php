@@ -5,7 +5,7 @@
     use classes\Command;
     use classes\Application;
 
-    class Jobs extends Command {
+    class Job extends Command {
         protected string $identifier = 'docker:job';
         protected string $description = 'Show all the variables of a job';
         protected string $help = 'Usage: ezekiel docker:job <ID>';
