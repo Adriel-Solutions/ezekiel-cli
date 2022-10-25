@@ -28,7 +28,7 @@
                 require './native/index.php';
                 $service = default_service('jobs');
             EOF
-                .'$job = $service->get(' . $id . ')'
+                .'$job = $service->get(' . $id . ');'
                 .<<<'EOF'
                 print(json_encode($job));
             EOF;
