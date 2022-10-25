@@ -30,7 +30,7 @@
             $handle_filename = pathinfo($new_handle_uri, PATHINFO_FILENAME);
 
             fwrite($handle, $script);
-            move_uploaded_file($handle_uri, $new_handle_uri);
+            rename($handle_uri, $new_handle_uri);
 
 
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
