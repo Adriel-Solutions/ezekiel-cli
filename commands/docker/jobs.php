@@ -27,7 +27,7 @@
 
             $handle_uri = stream_get_meta_data($handle)['uri'];
             $new_handle_uri = $handle_uri . '.php';
-            $handle_filename = pathinfo($new_handle_uri, PATHINFO_FILENAME);
+            $handle_filename = pathinfo($new_handle_uri, PATHINFO_BASENAME);
 
             fwrite($handle, $script);
             rename($handle_uri, $new_handle_uri);
