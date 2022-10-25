@@ -40,15 +40,16 @@
 
             $jobs = json_decode($output, true);
             $app->output_table(
-                [ 'ID' , 'Job' , 'Running' , 'For' , 'Frequency' , 'Last' ],
+                [ 'ID' , 'Job' , 'Running' , 'For' , 'Frequency' , 'From' ,'Last' ],
                 array_map(
                     fn($j) => [
                         $j['pk'] ,
                         $j['class'],
                         $j['is_running'] ? 'Yes' : 'No',
-                        $j['scheduled_for'],
-                        $j['schedule_frequency'],
-                        $j['last_run_at'],
+                        $j['scheduled_for'] ?? 'None',
+                        $j['schedule_frequency'] ?? 'None',
+                        $j['scheduled_from'] ?? 'None',
+                        $j['last_run_at'] ?? 'None',
                     ],
                     $jobs,
                 )
