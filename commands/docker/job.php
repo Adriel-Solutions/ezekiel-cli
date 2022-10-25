@@ -52,7 +52,7 @@
             // Equivalent of JS Object.entries(...)
             $new_job = [];
             foreach($job as $k => $v)
-                $new_job[] = [ $k , $v ];
+                $new_job[] = [ $k , $v ?? 'None' ];
 
             $app->output_table(
                 [ 'Attribute' , 'Value' ],
