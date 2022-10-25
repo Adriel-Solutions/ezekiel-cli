@@ -40,7 +40,7 @@
 
             $jobs = json_decode($output, true);
             $app->output_table(
-                [ 'ID' , 'Job' , 'Running' , 'For' , 'Frequency' , 'Last' , 'Context' ],
+                [ 'ID' , 'Job' , 'Running' , 'For' , 'Frequency' , 'Last' ],
                 array_map(
                     fn($j) => [
                         $j['pk'] ,
@@ -49,7 +49,6 @@
                         $j['scheduled_for'],
                         $j['schedule_frequency'],
                         $j['last_run_at'],
-                        $j['context'],
                     ],
                     $jobs,
                 )
