@@ -24,13 +24,17 @@
             EOF;
 
             $handle = tmpfile();
+
             $handle_uri = stream_get_meta_data($handle)['uri'];
-            $handle_filename = pathinfo($handle_uri, PATHINFO_FILENAME);
+            $new_handle_uri = $handle_uri . '.php';
+            $handle_filename = pathinfo($new_handle_uri, PATHINFO_FILENAME);
+
             fwrite($handle, $script);
-            move_uploaded_file($handle_uri, $handle_uri);
+            move_uploaded_file($handle_uri, $new_handle_uri);
+
 
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
-            $app->execute("docker cp $handle_uri $container:/tmp/$handle_filename");
+            $app->execute("docker cp $new_handle_uri $container:/tmp/$handle_filename");
             $output = $app->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
             var_dump($output);
             /* $app->output_table( */
