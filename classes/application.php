@@ -292,4 +292,22 @@
             return $content;
         }
 
+        // --- 
+
+        public function run_docker_script(string $container, string $script) : string
+        {
+            $handle = tmpfile();
+
+            $handle_uri = stream_get_meta_data($handle)['uri'];
+            $new_handle_uri = $handle_uri . '.php';
+            $handle_filename = pathinfo($new_handle_uri, PATHINFO_BASENAME);
+
+            fwrite($handle, $script);
+            rename($handle_uri, $new_handle_uri);
+
+            $this->execute("docker cp $new_handle_uri $container:/tmp/$handle_filename");
+            return $this->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
+        }
+
+
     }

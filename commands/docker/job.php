@@ -23,28 +23,9 @@
 
             $id = $args[0];
 
-            $script = <<<'EOF'
-                <?php
-                require './native/index.php';
-                $service = default_service('jobs');
-            EOF
-                .'$job = $service->get(' . $id . ');'
-                .<<<'EOF'
-                print(json_encode($job));
-            EOF;
-
-            $handle = tmpfile();
-
-            $handle_uri = stream_get_meta_data($handle)['uri'];
-            $new_handle_uri = $handle_uri . '.php';
-            $handle_filename = pathinfo($new_handle_uri, PATHINFO_BASENAME);
-
-            fwrite($handle, $script);
-            rename($handle_uri, $new_handle_uri);
-
+            $script = $app->fill_template('/scripts/docker/job.php', [ 'id' => $id ]);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
-            $app->execute("docker cp $new_handle_uri $container:/tmp/$handle_filename");
-            $output = $app->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
+            $output = $app->run_docker_script($container, $script);
 
             $job = json_decode($output, true);
 
