@@ -13,7 +13,7 @@
         {
         }
 
-        public function handle(Request $req, Response $res) : void 
+        public function handle(Request $req, Response $res)
         {
         }
 
