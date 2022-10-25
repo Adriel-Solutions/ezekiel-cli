@@ -16,7 +16,7 @@
 
             $this->exit_if_missing_dependencies($app);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name://' | tr -d '\" '");
-            $output = $app->execute("docker exec -it --user postgres $container psql -c 'SELECT * FROM jobs'");
+            $output = $app->execute("docker exec -it --user postgres $container psql -d project -c 'SELECT * FROM jobs'");
             var_dump($output);
             /* $app->output_table( */
             /*     [ 'Job' , 'Status' , 'Last run at' ], */
