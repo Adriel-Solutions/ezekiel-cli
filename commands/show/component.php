@@ -44,7 +44,19 @@
                     $relevant_lines[] = $l;
             }
 
-            var_dump($relevant_lines);
+            $attributes = [];
+            foreach($relevant_lines as $l) {
+                $parts = explode(' : ', $l);
+                $name = str_replace(['*','-',' '], '', $parts[0]);
+                $type = $parts[1];
+
+                $attributes[] = [ $name, $type ];
+            }
+
+            $app->output_table(
+                [ 'Attribute' , 'Type' ],
+                $attributes
+            );
         }
     }
 
