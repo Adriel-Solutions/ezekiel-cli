@@ -16,7 +16,8 @@
         {
             $this->exit_if_missing_dependencies($app);
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-db\" | sed -E 's/container_name://' | tr -d '\" '");
-            $app->execute("docker exec -it --user postgres $container psql -c 'DROP DATABASE project WITH (FORCE);'");
+            $app->execute("docker exec -it --user postgres $container psql -c 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='project';");
+            $app->execute("docker exec -it --user postgres $container psql -c 'DROP DATABASE project;'");
             $app->execute("docker exec -it --user postgres $container psql -f /docker-entrypoint-initdb.d/init.sql");
         }
     }
