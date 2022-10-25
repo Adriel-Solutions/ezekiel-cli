@@ -27,7 +27,6 @@
             $handle_uri = stream_get_meta_data($handle)['uri'];
             $handle_filename = pathinfo($handle_uri, PATHINFO_FILENAME);
             fwrite($handle, $script);
-            fclose($handle);
             move_uploaded_file($handle_uri, $handle_uri);
 
             $container = $app->execute("cat docker-compose.dev.yml | grep -E \"container_name: .*-fpm\" | sed -E 's/container_name://' | tr -d '\" '");
