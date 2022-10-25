@@ -5,7 +5,7 @@
     class Constants {
         public static $GIT_ORGANIZATION_URL = "https://github.com/Adriel-Solutions";
         public static $GIT_REPOSITORY_URL = "https://github.com/Adriel-Solutions/ezekiel";
-        public static $VERSION_NUMBER = "1.0.94";
-        public static $VERSION_COMMIT = "95d8534";
+        public static $VERSION_NUMBER = "1.0.95";
+        public static $VERSION_COMMIT = "def7909";
         public static $VERSION_DATE = "2022-10-25";
     }
