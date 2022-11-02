@@ -63,5 +63,6 @@
     $app->register(new \commands\docker\Tests);
     $app->register(new \commands\docker\Reset);
     $app->register(new \commands\docker\Run);
+    $app->register(new \commands\docker\Fpm);
 
     $app->process($argv);
