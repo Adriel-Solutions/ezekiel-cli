@@ -18,6 +18,7 @@
     $app->register(new \commands\Version);
 
     $app->register(new \commands\show\Modules);
+    $app->register(new \commands\show\Components);
     $app->register(new \commands\show\Component);
 
     $app->register(new \commands\make\Service);
