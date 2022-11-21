@@ -20,6 +20,8 @@
     $app->register(new \commands\show\Modules);
     $app->register(new \commands\show\Components);
     $app->register(new \commands\show\Component);
+    $app->register(new \commands\show\Jobs);
+    $app->register(new \commands\show\Job);
 
     $app->register(new \commands\make\Service);
     $app->register(new \commands\make\Controller);
@@ -44,6 +46,7 @@
     $app->register(new \commands\run\Migrations);
     $app->register(new \commands\run\Scheduler);
     $app->register(new \commands\run\Tests);
+    $app->register(new \commands\run\Repl);
 
     $app->register(new \commands\ansible\Setup);
     $app->register(new \commands\ansible\Ping);

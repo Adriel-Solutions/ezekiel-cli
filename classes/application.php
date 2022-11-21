@@ -294,6 +294,20 @@
 
         // --- 
 
+        public function run_script(string $script) : string
+        {
+            $handle = tmpfile();
+
+            $handle_uri = stream_get_meta_data($handle)['uri'];
+            $new_handle_uri = $handle_uri . '.php';
+            $handle_filename = pathinfo($new_handle_uri, PATHINFO_BASENAME);
+
+            fwrite($handle, $script);
+            rename($handle_uri, $new_handle_uri);
+
+            return $this->execute("php -f /tmp/$handle_filename");
+        }
+
         public function run_docker_script(string $container, string $script) : string
         {
             $handle = tmpfile();
