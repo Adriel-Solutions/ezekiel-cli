@@ -13,9 +13,15 @@
 
         public function run(application $app, ?string ...$args): void
         {
-            $app->execute('ezekiel completion > /usr/local/etc/bash_completion.d/ezekiel');
+            switch(PHP_OS_FAMILY) {
+                case 'Linux':
+                    $app->execute('ezekiel completion > /usr/share/bash-completion/completions/ezekiel');
+                break;
+
+                case 'Darwin':
+                case 'OSX':
+                    $app->execute('ezekiel completion > /usr/local/etc/bash_completion.d/ezekiel');
+                break;
+            }
         }
     }
-
-
-
