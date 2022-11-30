@@ -14,6 +14,7 @@
 
         public function run(Application $app, ?string ...$args): void
         {
+            $this->exit_if_missing_dependencies($app);
             $output = $app->execute("tailwind -i ./native/views/assets/styles/style.min.css -o ./native/views/assets/styles/tw.min.css");
             $app->output($output);
         }
