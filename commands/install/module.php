@@ -49,7 +49,7 @@
             $instruction = "\t\t\tmodule(\"$name\")->activate();";
             $app->execute('sed -i "" -e $\'' . $line_closing - 2 . ' a\\\\\\n\'\'' . $instruction . '\' ./app/bootstrap.php');
 
-            $app->ezekiel('run:migrations');
+            $app->ezekiel('docker:migrations');
 
             $app->output("Module $name installed and activated");
 
@@ -65,7 +65,5 @@
                 foreach($dependencies_to_install as $dependency => $version)
                     // @TODO Check composer syntax
                     $app->execute("composer require $dependency $version");
-
-
         }
     }
