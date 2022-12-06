@@ -15,6 +15,6 @@
         public function run(Application $app, ?string ...$args): void
         {
             $this->exit_if_missing_dependencies($app);
-            passthru("sudo -u postgres psql project");
+            passthru("su postgres -c 'psql project'");
         }
     }
