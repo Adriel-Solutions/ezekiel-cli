@@ -53,7 +53,7 @@
 
             $app->output("Module $name installed and activated");
 
-            $metadata = json_decode(file_get_contents("./app/modules/$name/$name.json"));
+            $metadata = json_decode(file_get_contents("./app/modules/$name/module.json"));
             $modules_to_install = $metadata['ezekiel_dependencies'];
             $dependencies_to_install = $metadata['composer_dependencies'];
 
