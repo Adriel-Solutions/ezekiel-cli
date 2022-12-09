@@ -8,6 +8,7 @@
         private bool $is_quiet;
         private bool $is_dry;
         private bool $is_globally_quiet;
+        private bool $is_csv_enforced;
 
         public function __construct()
         {
@@ -16,6 +17,7 @@
             $this->is_quiet = false;
             $this->is_dry = false;
             $this->is_globally_quiet = false;
+            $this->is_csv_enforced = false;
         }
 
         public function register(Command $cmd) : void
@@ -49,6 +51,9 @@
 
             if(in_array('--quiet', $args))
                 $this->is_globally_quiet = true;
+
+            if(in_array('--csv', $args))
+                $this->is_csv_enforced = true;
 
             $cmd->run($this, ...$args);
         }
@@ -157,6 +162,11 @@
                 print($content);
         }
 
+        public function output_csv(array $headers, array $rows) : void
+        {
+            print($this->to_csv($headers, $rows));
+        }
+
         public function prompt(string $str, string $default = "") : string
         {
             return readline($str) ?: $default;
@@ -179,6 +189,11 @@
         {
             $this->is_quiet = true;
             return $this;
+        }
+
+        public function is_csv_enforced() : bool
+        {
+            return $this->is_csv_enforced;
         }
 
         public function to_table(array $headers, array $rows) : string
@@ -252,6 +267,20 @@
             return $output;
         }
 
+        public function to_csv(array $headers, array $rows) : string
+        {
+            $csv_output = "";
+
+            $csv_output .= join(";", $headers);
+            $csv_output .= "\n";
+            foreach($rows as $row) {
+                $csv_output .= join(";", $row);
+                $csv_output .= "\n";
+            }
+
+            return $csv_output;
+        }
+
         // ---
 
         public function get_last_exit_code() : int
@@ -322,6 +351,4 @@
             $this->execute("docker cp $new_handle_uri $container:/tmp/$handle_filename");
             return $this->execute("docker exec -w /app -it $container sh -c 'php -f /tmp/$handle_filename'");
         }
-
-
     }

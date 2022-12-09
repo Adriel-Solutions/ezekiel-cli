@@ -69,5 +69,6 @@
     $app->register(new \commands\docker\Reset);
     $app->register(new \commands\docker\Run);
     $app->register(new \commands\docker\Fpm);
+    $app->register(new \commands\docker\Routes);
 
     $app->process($argv);
