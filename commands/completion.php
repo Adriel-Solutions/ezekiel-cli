@@ -16,7 +16,7 @@
             $identifiers = array_keys(iterator_to_array($app->get_commands()));
             $basic = array_filter($identifiers, fn($i) => !str_contains($i, ":"));
             $compound = array_filter($identifiers, fn($i) => str_contains($i, ":"));
-            $switches = [ '--dry-run' , '--quiet' ];
+            $switches = [ '--dry-run' , '--quiet' , '--csv' ];
 
             $suggestions = join(' ', $basic) . ' ' . join(' ', $compound) . ' ' . join(' ', $switches);
             $app->output($app->fill_template("/bash/completion", [ 'SUGGESTIONS' => $suggestions ]));
