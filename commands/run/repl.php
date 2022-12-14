@@ -15,6 +15,7 @@
         public function run(Application $app, ?string ...$args): void
         {
             $this->exit_if_missing_dependencies($app);
+            $app->output('Start writing psql commands > ');
             passthru("su postgres -c 'psql project'");
         }
     }
