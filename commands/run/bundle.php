@@ -21,11 +21,11 @@
             $app->output($output);
 
             // Alpine scripts - App
-            $output = $app->execute("find ./app/ -type f -name \"*.js\" -print | xargs -I {} echo {} | sed 's/...$//' | xargs -I {} uglifyjs {}.js --output {}.min.js");
+            $output = $app->execute("find ./app/ -type f -name \"*[^min].js\" -print | xargs -I {} echo {} | sed 's/...$//' | xargs -I {} uglifyjs {}.js --output {}.min.js");
             $app->output($output);
 
             // Alpine scripts - Native
-            $output = $app->execute("find ./native/views/assets/scripts/components/ -type f -name \"*.js\" -print | xargs -I {} echo {} | sed 's/...$//' | xargs -I {} uglifyjs {}.js --output {}.min.js");
+            $output = $app->execute("find ./native/views/assets/scripts/components/ -type f -name \"*[^min].js\" -print | xargs -I {} echo {} | sed 's/...$//' | xargs -I {} uglifyjs {}.js --output {}.min.js");
             $output = $app->execute("uglifyjs ./native/views/assets/scripts/core.js --output ./native/views/assets/scripts/core.min.js");
             $app->output($output);
         }
