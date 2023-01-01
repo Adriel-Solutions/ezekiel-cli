@@ -14,7 +14,7 @@
         {
             $this->exit_if_missing_dependencies($app);
 
-            $script = $app->fill_template('/scripts/docker/jobs.php', []);
+            $script = $app->fill_template('/scripts/docker/routes.php', []);
             $output = $app->run_script($script);
 
             $routes = json_decode($output, true);
