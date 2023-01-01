@@ -22,6 +22,7 @@
     $app->register(new \commands\show\Component);
     $app->register(new \commands\show\Jobs);
     $app->register(new \commands\show\Job);
+    $app->register(new \commands\show\Routes);
 
     $app->register(new \commands\make\Service);
     $app->register(new \commands\make\Controller);
