@@ -20,8 +20,9 @@
             $settings = [
                 'SSH_HOST' => $app->prompt('SSH Host : ', ''),
                 'DOMAIN' => $app->prompt('Domain : '),
+                'PROJECT_NAME' => $app->prompt('Project name : '),
                 'SSL_EMAIL' => $app->prompt('Email for SSL renewals : '),
-                'GIT_URL' => $app->prompt('Git repository URL : ')
+                'GIT_URL' => $app->prompt('Git repository URL : '),
             ];
 
             // Retrieve the default template 
