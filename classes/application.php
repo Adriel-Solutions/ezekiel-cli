@@ -9,6 +9,7 @@
         private bool $is_dry;
         private bool $is_globally_quiet;
         private bool $is_csv_enforced;
+        private bool $is_tailwind_disabled;
 
         public function __construct()
         {
@@ -18,6 +19,7 @@
             $this->is_dry = false;
             $this->is_globally_quiet = false;
             $this->is_csv_enforced = false;
+            $this->is_tailwind_disabled = false;
         }
 
         public function register(Command $cmd) : void
@@ -54,6 +56,9 @@
 
             if(in_array('--csv', $args))
                 $this->is_csv_enforced = true;
+
+            if(in_array('--no-tw'))
+                $this->is_tailwind_disabled = true;
 
             $cmd->run($this, ...$args);
         }
@@ -194,6 +199,11 @@
         public function is_csv_enforced() : bool
         {
             return $this->is_csv_enforced;
+        }
+
+        public function is_tailwind_disabled() : bool
+        {
+            return $this->is_tailwind_disabled;
         }
 
         public function to_table(array $headers, array $rows) : string

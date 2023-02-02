@@ -17,11 +17,16 @@
             $this->exit_if_missing_dependencies($app);
 
             // Tailwind
-            $output = $app->execute("tailwind -i ./native/views/assets/styles/style.min.css -o ./native/views/assets/styles/tw.css");
-            $app->output($output);
+            if(!$app->is_tailwind_disabled()) {
+                $output = $app->execute("tailwind -i ./native/views/assets/styles/style.min.css -o ./native/views/assets/styles/tw.css");
+                $app->output($output);
+            }
 
             // Lightningcss
-            $output = $app->execute("lightningcss --minify --bundle --targets 'cover 99.5%' ./native/views/assets/styles/tw.css > ./native/views/assets/styles/tw.min.css");
+            if(!$app->is_tailwind_disabled())
+                $output = $app->execute("lightningcss --minify --bundle --targets 'cover 99.5%' ./native/views/assets/styles/tw.css > ./native/views/assets/styles/tw.min.css");
+            else 
+                $output = $app->execute("lightningcss --minify --bundle --targets 'cover 99.5%' ./app/views/assets/styles/style.css > ./app/views/assets/styles/style.min.css");
 
             // Alpine scripts - App
             $output = $app->execute("find ./app/ -type f -name \"*[^min].js\" -print | xargs -I {} echo {} | sed 's/...$//' | xargs -I {} uglifyjs {}.js --output {}.min.js");
