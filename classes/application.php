@@ -57,7 +57,7 @@
             if(in_array('--csv', $args))
                 $this->is_csv_enforced = true;
 
-            if(in_array('--no-tw'))
+            if(in_array('--no-tw', $args))
                 $this->is_tailwind_disabled = true;
 
             $cmd->run($this, ...$args);
