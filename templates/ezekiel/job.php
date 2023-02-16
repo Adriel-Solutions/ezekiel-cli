@@ -5,9 +5,9 @@
     use native\libs\Job;
 
     class <NAME> extends Job {
-        public function run(?array $context): ?string
+        public function run(?array $context) : void
         {
-            return null;
+
         }
     }
 
